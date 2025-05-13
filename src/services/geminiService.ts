@@ -18,6 +18,18 @@ export const sendMessageToGemini = async (
     };
   }
 
+  // Format history for Gemini API - it expects "parts" instead of "content"
+  const formattedContents = history.map(item => ({
+    role: item.role,
+    parts: [{ text: item.content }]
+  }));
+  
+  // Add the current user message
+  formattedContents.push({
+    role: 'user',
+    parts: [{ text: message }]
+  });
+
   try {
     const response = await fetch('https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent', {
       method: 'POST',
@@ -26,13 +38,7 @@ export const sendMessageToGemini = async (
         'x-goog-api-key': apiKey,
       },
       body: JSON.stringify({
-        contents: [
-          ...history,
-          {
-            role: 'user',
-            content: message,
-          },
-        ],
+        contents: formattedContents,
         generationConfig: {
           temperature: 0.7,
           topK: 40,
