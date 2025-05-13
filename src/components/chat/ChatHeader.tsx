@@ -1,44 +1,44 @@
 
 import React from 'react';
-import { cn } from "@/lib/utils";
 
 interface ChatHeaderProps {
-  botName: string;
-  isOnline?: boolean;
+  botName?: string;
   avatarSrc?: string;
-  className?: string;
+  rightAction?: React.ReactNode;
 }
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({
-  botName,
-  isOnline = true,
+  botName = 'Assistant',
   avatarSrc,
-  className,
+  rightAction,
 }) => {
   return (
-    <div className={cn("flex items-center gap-3 p-4 border-b", className)}>
-      <div className="relative">
+    <div className="flex items-center p-3 border-b bg-white">
+      <div className="flex items-center flex-1">
         {avatarSrc ? (
           <img 
             src={avatarSrc} 
             alt={botName} 
-            className="w-10 h-10 rounded-full object-cover"
+            className="w-8 h-8 rounded-full mr-2 object-cover"
           />
         ) : (
-          <div className="w-10 h-10 bg-chat-bot text-white rounded-full flex items-center justify-center text-lg font-semibold">
+          <div className="w-8 h-8 bg-chat-bot text-white rounded-full flex items-center justify-center text-sm font-semibold mr-2">
             {botName.charAt(0)}
           </div>
         )}
-        
-        {isOnline && (
-          <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
-        )}
+        <div>
+          <h3 className="font-medium text-gray-800">{botName}</h3>
+          <div className="flex items-center">
+            <span className="w-2 h-2 bg-green-500 rounded-full mr-1" />
+            <span className="text-xs text-gray-500">Online</span>
+          </div>
+        </div>
       </div>
-      
-      <div>
-        <h3 className="font-medium text-lg">{botName}</h3>
-        <p className="text-xs text-gray-500">{isOnline ? 'Online' : 'Offline'}</p>
-      </div>
+      {rightAction && (
+        <div className="ml-auto">
+          {rightAction}
+        </div>
+      )}
     </div>
   );
 };
