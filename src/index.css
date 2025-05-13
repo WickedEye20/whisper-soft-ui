@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -49,6 +50,12 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Chat bot colors */
+    --chat-bot: 210 100% 50%;
+    --chat-bot-light: 210 100% 95%;
+    --chat-user: 228 100% 95%;
+    --chat-input: 0 0% 100%;
   }
 
   .dark {
@@ -87,6 +94,12 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Chat bot colors - dark mode */
+    --chat-bot: 210 80% 50%;
+    --chat-bot-light: 210 40% 25%;
+    --chat-user: 228 30% 25%;
+    --chat-input: 222.2 47.4% 11.2%;
   }
 }
 
@@ -98,4 +111,20 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Add animation for typing dots */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-pulse-dots {
+  animation: pulse 1.4s infinite;
 }
